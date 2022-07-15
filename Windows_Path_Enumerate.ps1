@@ -503,10 +503,11 @@ If (! (Test-Path $LogName)){
     }
 }
 
-
-'*********************************************************************' | Tee-Log -FilePath $LogName -Silent:$Passthru
-"$(get-date -format u)  :  INFO  : ComputerName: $($Env:ComputerName)" | Tee-Log -FilePath $LogName -Silent:$Passthru
-$validation | Tee-Log -FilePath $LogName -Silent:$Passthru
+If (! $WhatIf) {
+    '*********************************************************************' | Tee-Log -FilePath $LogName -Silent:$Passthru
+    "$(get-date -format u)  :  INFO  : ComputerName: $($Env:ComputerName)" | Tee-Log -FilePath $LogName -Silent:$Passthru
+    $validation | Tee-Log -FilePath $LogName -Silent:$Passthru
+}
 
 if ($RestoreBackup){
     if ($FixServices -and (! $FixUninstall)){
