@@ -379,7 +379,7 @@ Function Fix-ServicePath {
                                     Write-Output "$(get-date -format u)  :  Old Value : $soft_service : '$($OriginalPath.PSChildName)' - $($OriginalPath.$($FixParameter.ParamName))"
                                     Write-Output "$(get-date -format u)  :  Expected  : $soft_service : '$($OriginalPath.PSChildName)' - $NewValue"
                                 } else {
-                                    Write-Output "VULN: $soft_service"
+                                    Write-Output "VULN: $soft_service : '$($OriginalPath.PSChildName)'"
                                 }
                                 if ($Passthru){
                                     $PTElements += '' | Select-Object `
