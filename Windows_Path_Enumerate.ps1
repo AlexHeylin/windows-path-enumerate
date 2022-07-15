@@ -375,8 +375,12 @@ Function Fix-ServicePath {
                             try {
                                 $soft_service = $(if ($FixParameter.ParamName -Eq 'ImagePath') {'Service'}Else {'Software'})
                                 $OriginalPSPathOptimized = $OriginalPath.PSPath -replace $SpCharREGEX, '`$1'
-                                Write-Output "$(get-date -format u)  :  Old Value : $soft_service : '$($OriginalPath.PSChildName)' - $($OriginalPath.$($FixParameter.ParamName))"
-                                Write-Output "$(get-date -format u)  :  Expected  : $soft_service : '$($OriginalPath.PSChildName)' - $NewValue"
+                                If (! $WhatIf) {
+                                    Write-Output "$(get-date -format u)  :  Old Value : $soft_service : '$($OriginalPath.PSChildName)' - $($OriginalPath.$($FixParameter.ParamName))"
+                                    Write-Output "$(get-date -format u)  :  Expected  : $soft_service : '$($OriginalPath.PSChildName)' - $NewValue"
+                                } else {
+                                    Write-Output "VULN: $soft_service"
+                                }
                                 if ($Passthru){
                                     $PTElements += '' | Select-Object `
                                         @{n = 'Name'; e = {$OriginalPath.PSChildName}}, `
